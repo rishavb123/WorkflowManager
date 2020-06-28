@@ -9,15 +9,24 @@ import firebaseConfig from "./config/firebaseConfig.json";
 
 import 'fontsource-roboto';
 import { TextField, Button, ButtonGroup, AppBar, Toolbar, Typography } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
 
 import Project from './components/Project/Project.js';
 
 firebase.initializeApp(firebaseConfig);
 
+const theme = createMuiTheme({
+    palette: {
+      primary: green,
+    }
+});
+
 export default class App extends Component {
     
     state = {
         auth: 0,
+        page: 0,
         login: {},
         signup: {}
     }
@@ -30,27 +39,44 @@ export default class App extends Component {
             else
                 this.setState({ auth: 0 });
         });
+        this.unknownState = (
+            <div>
+                <h1>Error: </h1>
+                <br />
+                <p style="font-size: 200%">This state should not have been reached!</p>
+            </div>
+        );
     }
 
     render() {
         switch(this.state.auth) {
             case 1:
-                return (
-                    <div className="container">
-                        <AppBar className="bar" position="static">
-                            <Toolbar>
-                                <Typography variant="h6" style={{ flexGrow: 1 }}>
-                                    Workflow Manager
-                                </Typography>
-                                <Button onClick={() => firebase.auth().signOut()} variant="contained" color="secondary">Sign Out</Button>
-                            </Toolbar>
-                        </AppBar>
-                        <div className="main">
-                            Main
-                            <Project />
-                        </div>
-                    </div>
-                );
+                switch(this.state.page) {
+                    case 0:
+                        return (
+                            <div className="container">
+                                <AppBar className="bar" position="static">
+                                    <Toolbar>
+                                        <Typography variant="h6" style={{ flexGrow: 1 }}>
+                                            Workflow Manager
+                                        </Typography>
+                                        <ThemeProvider theme={theme}>
+                                            <Button onClick={() => {
+                                                
+                                            }} variant="contained" color='primary' className="create-project-btn" style={{ marginRight: '10px' }}>Create Project</Button>
+                                        </ThemeProvider>
+                                        <Button onClick={() => firebase.auth().signOut()} variant="contained" color="secondary">Sign Out</Button>
+                                    </Toolbar>
+                                </AppBar>
+                                <div className="main">
+                                    Main
+                                    <Project />
+                                </div>
+                            </div>
+                        );
+                    default:
+                        return this.unknownState;
+                }
             case 0:
                 return (
                     <div className="login-page">
@@ -74,7 +100,7 @@ export default class App extends Component {
                             </div>
                         </form>
                     </div>
-                )
+                );
             case -1:
                 return (
                     <div className="login-page">
@@ -110,7 +136,9 @@ export default class App extends Component {
                             </div>
                         </form>
                     </div>
-                )
+                );
+            default:
+                return this.unknownState;
         }
     }
 
