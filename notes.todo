@@ -1,6 +1,15 @@
 - citiesRef.where("regions", "array-contains", "west_coast")
-- Use something like ^ to check if a user has edit access to a certain document/project
-- Make view and edit access
-- Only owner has access to add and remove users
+    - Use something like ^ to check if a user has edit access to a certain document/project
+    - Make view and edit access
+    - Only owner has access to add and remove users
 - Find user by email? or maybe id
-- For ID could use default uid or create my own id system
+- For ID could use default uid or create my own id system, which could be based on the uid or not (prob end up just using uid tho)
+- 
+- 
+- 
+
+Future Ideas:
+- Add GitHub/Git Integration
+    - Update the project on firebase everytime its updated on git
+        - could do this by updating it the next time someone tries to view it
+    - 
