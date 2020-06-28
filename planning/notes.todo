@@ -4,7 +4,7 @@
     - Only owner has access to add and remove users
 - Find user by email? or maybe id
 - For ID could use default uid or create my own id system, which could be based on the uid or not (prob end up just using uid tho)
-- 
+- Have folders and subfolders for projects
 - 
 - 
 
