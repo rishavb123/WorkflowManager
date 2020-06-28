@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-/* Login Page */
+/* Login and Sign Up Page */
 
 .login-page {
     display: flex;
@@ -40,4 +40,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Main Page */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    background-color: gray;
+    flex-grow: 1;
 }

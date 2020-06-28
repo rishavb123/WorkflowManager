@@ -9,7 +9,7 @@ import firebaseConfig from "./config/firebaseConfig.json";
 
 import 'fontsource-roboto';
 
-import { TextField, Button, ButtonGroup } from '@material-ui/core';
+import { TextField, Button, ButtonGroup, AppBar, Toolbar, Typography } from '@material-ui/core';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -35,9 +35,18 @@ export default class App extends Component {
         switch(this.state.auth) {
             case 1:
                 return (
-                    <div>
-                        Hello World
-                        <Button onClick={() => firebase.auth().signOut()} variant="contained" color="secondary">Sign Out</Button>
+                    <div className="container">
+                        <AppBar className="bar" position="static">
+                            <Toolbar>
+                                <Typography variant="h6" style={{ flexGrow: 1 }}>
+                                    Workflow Manager
+                                </Typography>
+                                <Button onClick={() => firebase.auth().signOut()} variant="contained" color="secondary">Sign Out</Button>
+                            </Toolbar>
+                        </AppBar>
+                        <div className="main">
+                            Main
+                        </div>
                     </div>
                 );
             case 0:
