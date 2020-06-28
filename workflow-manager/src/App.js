@@ -8,8 +8,9 @@ import "firebase/firestore";
 import firebaseConfig from "./config/firebaseConfig.json";
 
 import 'fontsource-roboto';
-
 import { TextField, Button, ButtonGroup, AppBar, Toolbar, Typography } from '@material-ui/core';
+
+import Project from './components/Project/Project.js';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -46,6 +47,7 @@ export default class App extends Component {
                         </AppBar>
                         <div className="main">
                             Main
+                            <Project />
                         </div>
                     </div>
                 );
