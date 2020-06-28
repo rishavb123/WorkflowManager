@@ -1,0 +1,6 @@
+- citiesRef.where("regions", "array-contains", "west_coast")
+- Use something like ^ to check if a user has edit access to a certain document/project
+- Make view and edit access
+- Only owner has access to add and remove users
+- Find user by email? or maybe id
+- For ID could use default uid or create my own id system
