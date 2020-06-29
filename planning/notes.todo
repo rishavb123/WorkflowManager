@@ -19,6 +19,11 @@ Ideas for the todo list:
 - Make the secondary action a checkbox which will denote if the task is done or not
 - Can only delete the todo after opening the modal
 
+Make a Profile Page
+- Sign out
+- change password
+- change email
+
 Future Ideas:
 - Add GitHub/Git Integration
     - Update the project on firebase everytime its updated on git
@@ -26,3 +31,4 @@ Future Ideas:
 
 - Use Firebase smart link or whatever its called to create share links for the projects
     - of course also have the option to just share it normally using email or uid
+    - could create an email to uid cloud function to help find users or something of that sort
