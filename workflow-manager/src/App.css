@@ -3,6 +3,34 @@
     padding: 0;
 }
 
+/* Headers */
+
+h2 {
+    font-weight: normal;
+    font-size: 150%;
+    margin-left: 2%;
+    color: rgb(255, 255, 255);
+}
+
+/* General Form Stuff */
+
+.form-title {
+    font-size: 200%;
+    text-align: left;
+    width: 80%;
+}
+
+.form-field {
+    width: 80%;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 /* Login and Sign Up Page */
 
 .login-page {
@@ -15,24 +43,10 @@
 }
 
 .login-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     width: 50%;
     background-color: white;
     height: 50%;
     border-radius: 50px;
-}
-
-.login-title {
-    font-size: 200%;
-    text-align: left;
-    width: 80%;
-}
-
-.email-field, .password-field {
-    width: 80%;
 }
 
 .login-btn-div {
@@ -53,4 +67,27 @@
 .main {
     background-color: gray;
     flex-grow: 1;
+    padding-top: 2%;
+}
+
+/* Create Project Modal */
+
+.create-project-modal {
+    background-color: #00000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-project-form {
+    background-color: white;
+    width: 70%;
+    height: 70%;
+}
+
+.create-project-submit-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
 }
