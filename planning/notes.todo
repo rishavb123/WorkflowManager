@@ -18,17 +18,27 @@ Ideas for the todo list:
     - give hints in the database structure image
 - Make the secondary action a checkbox which will denote if the task is done or not
 - Can only delete the todo after opening the modal
+- Add a label to each todo
+- Then show a pi chart for the todos on open project
 
 Make a Profile Page
 - Sign out
 - change password
 - change email
 
+Put a progress bar on the Project card 
+- using the length and how much is done and how much is left
+
+Timeline for each update:
+- Just like commits from git
+
 Future Ideas:
 - Add GitHub/Git Integration
     - Update the project on firebase everytime its updated on git
         - could do this by updating it the next time someone tries to view it
 
-- Use Firebase smart link or whatever its called to create share links for the projects
+- Use Firebase dynamic link or whatever its called to create share links for the projects
     - of course also have the option to just share it normally using email or uid
     - could create an email to uid cloud function to help find users or something of that sort
+
+- Maybe make a command line interface to interfar with the timeline
