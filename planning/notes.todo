@@ -23,4 +23,6 @@ Future Ideas:
 - Add GitHub/Git Integration
     - Update the project on firebase everytime its updated on git
         - could do this by updating it the next time someone tries to view it
-    - 
+
+- Use Firebase smart link or whatever its called to create share links for the projects
+    - of course also have the option to just share it normally using email or uid
