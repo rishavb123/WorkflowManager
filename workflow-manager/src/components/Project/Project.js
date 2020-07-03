@@ -35,7 +35,7 @@ export default class Project extends Component {
                                                         ") in the space below. This action is permanant and cannot be undone."))
                             this.props.db.collection("projects").doc(this.state.id).delete().then(() => alert("Project Deleted!"))
                     }}>Delete</Button>
-                    <Button size="small">Open</Button>
+                    <Button size="small" onClick={this.props.onOpen}>Open</Button>
                 </CardActions>
             </Card>
         );
