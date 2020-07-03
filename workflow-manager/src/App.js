@@ -13,6 +13,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 
 import Project from './components/Project/Project.js';
+import ProjectView from './components/ProjectView/ProjectView.js';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -153,6 +154,11 @@ export default class App extends Component {
                             </div>
                         );
                     case 1:
+                        const shareBtn = (
+                            <ThemeProvider theme={theme}>
+                                <Button onClick={() => this.setState({ createProjectModalOpen: true })} variant="contained" color='primary' className="create-project-btn" style={{ marginRight: '10px' }}>Create Project</Button>
+                            </ThemeProvider>
+                        );
                         return (
                             <div>
                                 <AppBar className="bar" position="static">
@@ -160,11 +166,17 @@ export default class App extends Component {
                                         <Typography variant="h6" style={{ flexGrow: 1 }}>
                                             {this.state.curProject.name}
                                         </Typography>
+                                        <ThemeProvider theme={theme}>
+                                            <Button onClick={() => {
+                                                if(this.state.curProject.ownerId == auth.currentUser.uid)
+                                                    console.log("Open Share Model");
+                                            }} variant="contained" color={this.state.curProject.ownerId == auth.currentUser.uid? 'primary': 'disabled'} className="create-project-btn" style={{ marginRight: '10px' }}>Share</Button>
+                                        </ThemeProvider>
                                         <Button onClick={() => this.setState({ page: 0 })} variant="contained" color="secondary">Back</Button>
                                     </Toolbar>
                                 </AppBar>
                                 <div className="main">
-                                    <ProjectView project={this.state.curProject} />
+                                    <ProjectView project={this.state.curProject} db={db} />
                                 </div>
                             </div>
                         );
