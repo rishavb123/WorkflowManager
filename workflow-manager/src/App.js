@@ -30,6 +30,7 @@ export default class App extends Component {
     state = {
         auth: 0,
         page: 0,
+        curProject: {},
         login: {},
         signup: {},
         createProject: {},
@@ -103,9 +104,19 @@ export default class App extends Component {
                                 </AppBar>
                                 <div className="main">
                                     <h2>Edit Access</h2>
-                                    {this.state.editProjects.map((project) => <Project db={db} detail={project} />)}
+                                    {this.state.editProjects.map((project) => <Project db={db} onOpen={() => {
+                                            this.setState({
+                                                curProject: project,
+                                                page: 1
+                                            });
+                                        }} detail={project} />)}
                                     <h2>View Access</h2>
-                                    {this.state.viewProjects.map((project) => <Project db={db} detail={project} />)}
+                                    {this.state.viewProjects.map((project) => <Project db={db} onOpen={() => {
+                                        this.setState({
+                                            curProject: project,
+                                            page: 1
+                                        });
+                                    }} detail={project} />)}
                                 </div>
                                 <Modal
                                     open={this.state.createProjectModalOpen}
@@ -139,6 +150,22 @@ export default class App extends Component {
                                         </div>
                                     </form>
                                 </Modal>
+                            </div>
+                        );
+                    case 1:
+                        return (
+                            <div>
+                                <AppBar className="bar" position="static">
+                                    <Toolbar>
+                                        <Typography variant="h6" style={{ flexGrow: 1 }}>
+                                            {this.state.curProject.name}
+                                        </Typography>
+                                        <Button onClick={() => this.setState({ page: 0 })} variant="contained" color="secondary">Back</Button>
+                                    </Toolbar>
+                                </AppBar>
+                                <div className="main">
+                                    <ProjectView project={this.state.curProject} />
+                                </div>
                             </div>
                         );
                     default:
