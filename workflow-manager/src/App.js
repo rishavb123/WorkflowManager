@@ -55,7 +55,7 @@ export default class App extends Component {
             <div>
                 <h1>Error: </h1>
                 <br />
-                <p style="font-size: 200%">This state should not have been reached!</p>
+                <p style={{ fontSize: "200%" }}>This state should not have been reached!</p>
             </div>
         );
     }
@@ -144,7 +144,6 @@ export default class App extends Component {
                                                         viewers: [],
                                                         links: [],
                                                         files: [],
-                                                        todo: []
                                                     }).then(() => this.setState({ createProject: {}, createProjectModalOpen: false }))
                                                 } variant="contained" color='primary'>Create Project</Button>
                                             </ThemeProvider>
@@ -154,13 +153,8 @@ export default class App extends Component {
                             </div>
                         );
                     case 1:
-                        const shareBtn = (
-                            <ThemeProvider theme={theme}>
-                                <Button onClick={() => this.setState({ createProjectModalOpen: true })} variant="contained" color='primary' className="create-project-btn" style={{ marginRight: '10px' }}>Create Project</Button>
-                            </ThemeProvider>
-                        );
                         return (
-                            <div>
+                            <div class="container">
                                 <AppBar className="bar" position="static">
                                     <Toolbar>
                                         <Typography variant="h6" style={{ flexGrow: 1 }}>
@@ -168,9 +162,9 @@ export default class App extends Component {
                                         </Typography>
                                         <ThemeProvider theme={theme}>
                                             <Button onClick={() => {
-                                                if(this.state.curProject.ownerId == auth.currentUser.uid)
+                                                if(this.state.curProject.ownerId === auth.currentUser.uid)
                                                     console.log("Open Share Model");
-                                            }} variant="contained" color={this.state.curProject.ownerId == auth.currentUser.uid? 'primary': 'disabled'} className="create-project-btn" style={{ marginRight: '10px' }}>Share</Button>
+                                            }} variant="contained" color={this.state.curProject.ownerId === auth.currentUser.uid? 'primary': 'disabled'} className="create-project-btn" style={{ marginRight: '10px' }}>Share</Button>
                                         </ThemeProvider>
                                         <Button onClick={() => this.setState({ page: 0 })} variant="contained" color="secondary">Back</Button>
                                     </Toolbar>

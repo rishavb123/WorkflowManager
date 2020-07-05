@@ -1,0 +1,41 @@
+.project-header {
+    font-size: 200%;
+    color: rgb(255, 172, 172);
+}
+
+.desc {
+    margin-left: 3%;
+    font-size: 120%;
+    color: rgb(144, 229, 255);
+}
+
+.full-todo-list {
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.full-todo-list::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+.full-todo-list::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+.todo-list {
+    margin: 1%;
+}
+
+.todo-list-item {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.todo-text { 
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+    padding: 1%;
+}
