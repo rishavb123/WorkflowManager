@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import 'fontsource-roboto';
-import { List, ListSubheader, ListItemText, TextField, Button, Modal, ListItem, TextareaAutosize, ListItemSecondaryAction, IconButton, ListItemIcon, Checkbox, FormControlLabel } from '@material-ui/core';
+import { List, ListSubheader, ListItemText, TextField, Button, Modal, ListItem, TextareaAutosize, ListItemSecondaryAction, IconButton, ListItemIcon, Checkbox, FormControlLabel, LinearProgress, Typography, Box } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { green } from '@material-ui/core/colors';
@@ -15,6 +15,21 @@ const theme = createMuiTheme({
       primary: green
     }
 });
+
+function LinearProgressWithLabel(props) {
+    return (
+        <Box display="flex" alignItems="center">
+            <Box width="100%" mr={1}>
+                <LinearProgress variant="determinate" {...props} />
+            </Box>
+            <Box minWidth={35}>
+                <Typography variant="body2" color="textSecondary">
+                    {`${Math.round(props.value)}%`}
+                </Typography>
+            </Box>
+        </Box>
+    );
+  }
 
 export default class ProjectView extends Component {
 
@@ -52,7 +67,7 @@ export default class ProjectView extends Component {
 
     render() {
         return (
-            <div>
+            <div class='project-view'>
                 <h2 class='project-header'>{this.state.name}</h2>
                 <p className="desc">{this.state.description}</p>
                 <List class="full-todo-list" subheader={<li />}>
@@ -104,6 +119,17 @@ export default class ProjectView extends Component {
                         ))
                     }
                 </List>
+                <h3>Progress</h3>
+                <LinearProgressWithLabel value={(() => {
+                    const addLengths = (list) => {
+                        let sum = 0;
+                        for(let obj of list) sum += parseInt(obj.length);
+                        return sum;
+                    }
+                    const total = addLengths(this.state.todo);
+                    if(total === 0) return 100;
+                    return addLengths(this.state.todo.filter((todo) => todo.done)) * 100 / total;
+                })()}/>
                 <Modal
                     open={this.state.todoModalOpen}
                     onClose={() => this.setState({ todoModalOpen: false })}
