@@ -119,14 +119,14 @@ export default class App extends Component {
                                 </AppBar>
                                 <div className="main">
                                     <h2>Edit Access</h2>
-                                    {this.state.editProjects.map((project) => <Project db={db} onOpen={() => {
+                                    {this.state.editProjects.map((project) => <Project db={db} auth={auth} onOpen={() => {
                                             this.setState({
                                                 curProject: project,
                                                 page: 1
                                             });
                                         }} detail={project} />)}
                                     <h2>View Access</h2>
-                                    {this.state.viewProjects.map((project) => <Project db={db} onOpen={() => {
+                                    {this.state.viewProjects.map((project) => <Project db={db} auth={auth} onOpen={() => {
                                         this.setState({
                                             curProject: project,
                                             page: 1
@@ -206,7 +206,7 @@ export default class App extends Component {
                                                         const arr = snapshot.get('editors');
                                                         return fetch('https://us-central1-rb-workflow-manager.cloudfunctions.net/getUser?email=' + this.state.shareTo).then(res => res.json()).then(
                                                             (result) => {
-                                                                arr.append(result.uid);
+                                                                arr.push(result.uid);
                                                                 transation.update(dbRef, 'editors', arr);
                                                             }
                                                         );

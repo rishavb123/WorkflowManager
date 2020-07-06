@@ -32,8 +32,31 @@ export default class Project extends Component {
                                                         this.state.name + 
                                                         "? To confirm, please type the project name (" + 
                                                         this.state.name + 
-                                                        ") in the space below. This action is permanant and cannot be undone."))
-                            this.props.db.collection("projects").doc(this.state.id).delete().then(() => alert("Project Deleted!"))
+                                                        ") in the space below. This action is permanant and cannot be undone.")) {
+                            const uid = this.props.auth.uid;
+                            if(this.state.editors.includes(uid)) {
+                                const dbRef = this.props.db.collection('projects').doc(this.state.id);
+                                this.props.db.runTransaction(transation => {
+                                    return transation.get(dbRef).then((snapshot) => {
+                                        const arr = snapshot.get('editors');
+                                        arr.remove(this.props.auth.currentUser.uid);
+                                        transation.update(dbRef, 'editors', arr);
+                                    })
+                                });
+                            }
+                            if(this.state.viewers.includes(uid)) {
+                                const dbRef = this.props.db.collection('projects').doc(this.state.id);
+                                this.props.db.runTransaction(transation => {
+                                    return transation.get(dbRef).then((snapshot) => {
+                                        const arr = snapshot.get('viewers');
+                                        arr.remove(this.props.auth.currentUser.uid);
+                                        transation.update(dbRef, 'viewers', arr);
+                                    })
+                                });
+                            }
+                            if(uid === this.state.owner)
+                                this.props.db.collection("projects").doc(this.state.id).delete().then(() => alert("Project Deleted!"))
+                        }
                     }}>Delete</Button>
                     <Button size="small" onClick={this.props.onOpen}>Open</Button>
                 </CardActions>
