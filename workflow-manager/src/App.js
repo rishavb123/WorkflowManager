@@ -111,6 +111,7 @@ export default class App extends Component {
                                             open={Boolean(this.state.anchorEl)}
                                             onClose={() => this.setState({ anchorEl: null })}
                                         >
+                                            <MenuItem onClick={() => alert(auth.currentUser.uid)}>View UID</MenuItem>
                                             <MenuItem onClick={() => auth.sendPasswordResetEmail(auth.currentUser.email)}>Send Password Reset</MenuItem>
                                             <MenuItem onClick={() => auth.signOut()}>Logout</MenuItem>
                                         </Menu>
@@ -176,7 +177,7 @@ export default class App extends Component {
                                         <ThemeProvider theme={theme}>
                                             <Button onClick={() => {
                                                 if(this.state.curProject.ownerId === auth.currentUser.uid)
-                                                    console.log("Open Share Model");
+                                                    this.setState({ shareModalOpen: true });
                                             }} variant="contained" color={this.state.curProject.ownerId === auth.currentUser.uid? 'primary': 'disabled'} className="create-project-btn" style={{ marginRight: '10px' }}>Share</Button>
                                         </ThemeProvider>
                                         <Button onClick={() => this.setState({ page: 0 })} variant="contained" color="secondary">Back</Button>
@@ -185,6 +186,36 @@ export default class App extends Component {
                                 <div className="main">
                                     <ProjectView project={this.state.curProject} db={db} />
                                 </div>
+                                <Modal
+                                    open={this.state.shareModalOpen}
+                                    onClose={() => this.setState({ shareModalOpen: false })}
+                                    aria-labelledby="simple-modal-title"
+                                    aria-describedby="simple-modal-description"
+                                    className="create-project-modal"
+                                >
+                                    <form className="form create-project-form" noValidate autoComplete="off">
+                                        <span className="form-title">Share Project</span>
+                                        <TextField value={this.state.shareTo} onChange={
+                                            (e) => this.setState({ shareTo: e.target.value })
+                                        } required className="form-field" label="Email" variant="standard" />
+                                        <ThemeProvider theme={theme}>
+                                            <Button onClick={() => {
+                                                const dbRef = db.collection('projects').doc(this.state.curProject.id);
+                                                db.runTransaction(transation => {
+                                                    return transation.get(dbRef).then((snapshot) => {
+                                                        const arr = snapshot.get('editors');
+                                                        return fetch('https://us-central1-rb-workflow-manager.cloudfunctions.net/getUser?email=' + this.state.shareTo).then(res => res.json()).then(
+                                                            (result) => {
+                                                                arr.append(result.uid);
+                                                                transation.update(dbRef, 'editors', arr);
+                                                            }
+                                                        );
+                                                    })
+                                                });
+                                            }} variant="contained" color={this.state.curProject.ownerId === auth.currentUser.uid? 'primary': 'disabled'} className="create-project-btn" style={{ marginRight: '10px' }}>Share</Button>
+                                        </ThemeProvider>
+                                    </form>
+                                </Modal>
                             </div>
                         );
                     default:
