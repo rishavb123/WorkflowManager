@@ -8,9 +8,10 @@ import "firebase/firestore";
 import firebaseConfig from "./config/firebaseConfig.json";
 
 import 'fontsource-roboto';
-import { TextField, Button, ButtonGroup, AppBar, Toolbar, Typography, Modal } from '@material-ui/core';
+import { TextField, Button, ButtonGroup, AppBar, Toolbar, Typography, Modal, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
+import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 
 import Project from './components/Project/Project.js';
 import ProjectView from './components/ProjectView/ProjectView.js';
@@ -37,8 +38,8 @@ export default class App extends Component {
         createProject: {},
         createProjectModalOpen: false,
         editProjects: [],
-        viewProjects: []
-    }
+        viewProjects: [],
+    };
 
     constructor() {
         super();
@@ -100,7 +101,19 @@ export default class App extends Component {
                                         <ThemeProvider theme={theme}>
                                             <Button onClick={() => this.setState({ createProjectModalOpen: true })} variant="contained" color='primary' className="create-project-btn" style={{ marginRight: '10px' }}>Create Project</Button>
                                         </ThemeProvider>
-                                        <Button onClick={() => auth.signOut()} variant="contained" color="secondary">Sign Out</Button>
+                                        <IconButton edge="end" aria-label="account" onClick={(e) => this.setState({ anchorEl: e.currentTarget })}>
+                                            <AccountCircleTwoToneIcon />
+                                        </IconButton>
+                                        <Menu
+                                            id="simple-menu"
+                                            anchorEl={this.state.anchorEl}
+                                            keepMounted
+                                            open={Boolean(this.state.anchorEl)}
+                                            onClose={() => this.setState({ anchorEl: null })}
+                                        >
+                                            <MenuItem onClick={() => auth.sendPasswordResetEmail(auth.currentUser.email)}>Send Password Reset</MenuItem>
+                                            <MenuItem onClick={() => auth.signOut()}>Logout</MenuItem>
+                                        </Menu>
                                     </Toolbar>
                                 </AppBar>
                                 <div className="main">
