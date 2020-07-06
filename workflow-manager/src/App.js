@@ -201,6 +201,7 @@ export default class App extends Component {
                             <TextField value={this.state.login.password} onChange={
                                 (e) => this.setState({ login: {...this.state.login, password: e.target.value} })
                             } required className="form-field" label="Password" type="password" autoComplete="current-password" variant="standard" />
+                            <a onClick={() => this.setState({ auth: -2 })}>Forgot Password</a>
                             <div className="login-btn-div">
                                 <ButtonGroup>
                                     <Button onClick={
@@ -232,7 +233,7 @@ export default class App extends Component {
                                 <ButtonGroup>
                                     <Button onClick={
                                         () => this.setState({ auth: 0 })
-                                    } className="login-btn" variant="contained">Login</Button>
+                                    } className="login-btn" variant="contained">Back to Login</Button>
                                     <Button onClick={
                                         () => {
                                             const pas1 = this.state.signup.password1;
@@ -245,6 +246,27 @@ export default class App extends Component {
                                             }
                                         }
                                     } className="login-btn" variant="contained" color="primary">Sign Up</Button>
+                                </ButtonGroup>
+                            </div>
+                        </form>
+                    </div>
+                );
+            case -2:
+                return (
+                    <div className="login-page">
+                        <form className="form login-form" noValidate autoComplete="off">
+                            <span className="form-title">Forgot Password</span>
+                            <TextField value={this.state.login.email} onChange={
+                                (e) => this.setState({ login: {...this.state.login, email: e.target.value} })
+                            } required className="form-field" label="Email" variant="standard" />
+                            <div className="login-btn-div">
+                                <ButtonGroup>
+                                    <Button onClick={
+                                        () => this.setState({ auth: 0 })
+                                    } className="login-btn" variant="contained">Back to Login</Button>
+                                    <Button onClick={
+                                        () => auth.sendPasswordResetEmail(this.state.login.email).catch((err) => alert(err.message))
+                                    } className="login-btn" variant="contained" color="primary">Send Password Reset</Button>
                                 </ButtonGroup>
                             </div>
                         </form>
