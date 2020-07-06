@@ -1,8 +1,11 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+admin.initializeApp();
+
+exports.getUser = functions.https.onRequest((req, res) => {
+    if(req.query.uid)
+        return admin.auth().getUser(req.query.uid).then((user) => res.json(user.toJSON()));
+    else if(req.query.email)
+        return admin.auth().getUserByEmail(req.query.email).then((user) => res.json(user.toJSON()));
+});
